@@ -1,0 +1,85 @@
+:root {
+    --background: #eeedeb;
+    --background2: #ffffff;
+    --cor1: #cce2e2;
+    --cor2: #b3b3b3;
+    --cor3: #44babc;
+    --cor4: #35797d;
+    --cor5: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+}
+
+main {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--cor1);
+}
+
+.login {
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    height: 70vh;
+    width: 70vh;
+}
+
+.infosLogin {
+    display: grid;
+    height: 50vh;
+    width: 50vh;
+    background-color: var(--background2);
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 0px 10px 5px #00000046;
+
+}
+
+textarea {
+    height: 3vh;
+    width: 35vh;
+    font-size: 2vh;
+    border-bottom: 3px solid var(--cor4);
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: var(--cor3);
+    background-color: var(--background2);
+}
+
+.numerosSenha {
+    display: grid;
+    height: 30vh;
+    width: 40vh;
+    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+}
+
+button {
+    height: 6vh;
+    width: 6vh;
+    border-radius: 50px;
+    font-size: 2.2vh;
+    border: 1px solid var(--cor4);
+    color: var(--cor4);
+    background-color: var(--background2);
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: var(--cor3);
+    color: var(--background2);
+}

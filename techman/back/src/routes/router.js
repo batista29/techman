@@ -20,5 +20,6 @@ const comentarios = require('../controllers/controllerComentario')
 
 router.get('/listarComentarios', comentarios.read)
 router.post('/criarComentario', comentarios.create)
+router.delete('/deletarComentario/:id', comentarios.del)
 
 module.exports = router

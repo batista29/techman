@@ -59,36 +59,37 @@ const update = async (req, res) => {
 }
 
 const login = async (req, res) => {
-    try {
-        const usuario = await prisma.usuario.findUnique({
-            where: { email: req.body.email }
-        }).catch(err => {
-            console.log(err)
-        })
+    const user = await prisma.Usuario.findUnique({
+        where: { perfil: req.body.perfil }
 
-        if (!usuario) {
-            return res.status(401).send({ mensagem: "Usuário não encontrado" });
+    }).catch(err => {
+        console.log(err)
+    })
+
+    if (user) {
+
+        //comparando a senha que o usuario digitou com a senha criptgrafada
+        if (await bcrypt.compare(req.body.senha, user.senha)) {
+            var result = user
+
+            jwt.sign(result, process.env.KEY, { expiresIn: '10h' }, function (err, token) {
+
+                if (err == null) {
+                    // adicionando um token quando o usuário logar
+
+                    result["token"] = token
+                    res.status(200).json({ result }).end()
+                } else {
+                    res.status(404).json(err).end()
+                }
+            })
+        } else {
+            res.status(404).json({ "result": "senha incorreta" }).end()
         }
-
-        if (!(await bcrypt.compare(req.body.senha, usuario.senha))) {
-            return res.status(401).send({ mensagem: "Senha incorreta" });
-        }
-
-        const token = jwt.sign(usuario, process.env.KEY, { expiresIn: '10h' })
-
-        const sendLoginResponse = (res, usuario, token) => {
-            usuario["token"] = token;
-            res.status(200).send({ mensagem: "Seu login foi bem-sucedido", usuario }).end();
-        }
-
-        sendLoginResponse(res, usuario, token);
-
-    } catch (error) {
-        console.log(error);
-        res.status(500).send({ mensagem: "Erro interno do servidor" });
+    } else {
+        res.status(404).json({ "result": "usuario não encontrado" }).end()
     }
 }
-
 module.exports = {
     create,
     read,
