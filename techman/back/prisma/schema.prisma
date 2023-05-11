@@ -19,7 +19,7 @@ model Perfil {
 
 model Usuario {
   id       Int    @id @default(autoincrement())
-  senha    String
+  senha    Int @unique
   perfil   Int
   perfilId Perfil @relation(fields: [perfil], references: [id])
 }

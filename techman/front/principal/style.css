@@ -1,0 +1,102 @@
+:root {
+    --background: #eeedeb;
+    --background2: #ffffff;
+    --cor1: #cce2e2;
+    --cor2: #b3b3b3;
+    --cor3: #44babc;
+    --cor4: #35797d;
+    --cor5: #000000;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--cor1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+header {
+    display: flex;
+    height: 15vh;
+    border-bottom: 2px solid var(--cor4);
+    justify-content: space-between;
+    align-items: center;
+    color: var(--cor4);
+}
+
+.opcoes {
+    display: flex;
+}
+
+.opcoes>button,
+.infos>button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 1s;
+}
+
+.opcoes>button:hover,
+.infos>button:hover {
+    transition: 0.4s;
+    transform: scale(1.2);
+}
+
+.infos>button{
+    margin-top: 1vh;
+}
+
+.opcoes>h1,
+.opcoes {
+    margin-right: 3vh;
+}
+
+.logo {
+    margin-left: 3vh;
+}
+
+main {
+    display: flex;
+    height: 85vh;
+    width: 100%;
+    justify-content: center;
+}
+
+.model {
+    display: none;
+}
+
+.readEquipamentos {
+    display: flex;
+    margin-top: 30px;
+    height: 30vh;
+    width: 120vh;
+    border-bottom: 3px solid var(--cor3);
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    color: var(--cor5);
+    font-size: 2.2vh;
+    align-items: center;
+}
+
+.infos,
+.readEquipamentos>div>img {
+    margin: 2vh;
+}
+
+.infos>button>img {
+    height: 4vh;
+}
+
+.readEquipamentos>.imgInfo>img {
+    height: 260px;
+}
+
+.imagem {
+    border: 2px solid var(--cor3);
+}

@@ -26,4 +26,24 @@ function enviar() {
     console.log(input.value)
 
     let senha = input.value
+
+    const options = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: `{"senha":${senha}}`
+    };
+
+    fetch('http://localhost:3000/login', options)
+        .then(response => response.json())
+        .then(response => {
+            console.log(response.mensagem)
+            if (response.mensagem == "Aceito") {
+                alert("Aceita")
+                window.location.href = '../principal/index.html'
+            } else if (response.mensagem == "Recusado") {
+                alert("Senha recusada")
+                window.location.reload()
+            }
+        })
+        .catch(err => console.error(err));
 }
