@@ -11,15 +11,15 @@ datasource db {
 }
 
 model Perfil {
-  id      Int       @id @default(autoincrement())
-  Perfil  String       @unique
-  usuario Usuario[]
+  id          Int           @id @default(autoincrement())
+  Perfil      String        @unique
+  usuario     Usuario[]
   comentarios Comentarios[]
 }
 
 model Usuario {
   id       Int    @id @default(autoincrement())
-  senha    Int @unique
+  senha    Int    @unique
   perfil   Int
   perfilId Perfil @relation(fields: [perfil], references: [id])
 }
@@ -41,5 +41,5 @@ model Comentarios {
   perfil        Int
   data          DateTime
   perfilId      Perfil       @relation(fields: [perfil], references: [id])
-  equipamentoId Equipamentos @relation(fields: [equipamento], references: [id])
+  equipamentoId Equipamentos @relation(fields: [equipamento], references: [id], onDelete: Cascade)
 }

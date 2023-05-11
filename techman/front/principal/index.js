@@ -2,6 +2,9 @@ var container = document.querySelector(".container")
 var listaRead = document.querySelector(".read")
 var readEquipamentos = document.querySelector(".readEquipamentos")
 
+var divComentarios = document.querySelector('.divComentarios')
+var comentarios = document.querySelector('.comentarios')
+
 function carregar() {
     let options = { method: 'GET' };
 
@@ -31,7 +34,7 @@ function logout() {
 }
 
 function deletar(e) {
-    var id = e.parentNode.parentNode.querySelector('.id').innerHTML
+    let id = e.parentNode.parentNode.querySelector('.id').innerHTML
     console.log(id)
 
     let option2 = { method: 'DELETE' };
@@ -39,11 +42,58 @@ function deletar(e) {
     fetch(`http://localhost:3000/deletarEquipamento/${id}`, option2)
         .then(response => response.json())
         .then(res => {
+            console.log(res.mensagem)
             if (res.mensagem = 'deletado com sucesso') {
                 alert("Sucesso")
+                window.location.reload()
             } else {
                 alert("Erro")
             }
         })
         .catch(err => console.error(err));
+}
+
+// function comentarios(e) {
+//     let comentario = e.parentNode.parentNode.querySelector('.id').innerHTML
+// }
+
+function abrirModalComentario(e) {
+    let modalAparecer = document.querySelector(".modalComentarios");
+    modalAparecer.classList.add("modelModal")
+
+    let id = e.parentNode.parentNode.querySelector('.id').innerHTML
+
+    let options = { method: 'GET' };
+
+    fetch(`http://localhost:3000/encontrarEquipamento/${id}`, options)
+        .then(response => response.json())
+        .then(res => {
+            res.comentarios.forEach(dados => {
+
+                let tabela = divComentarios.cloneNode(true)
+                tabela.classList.remove("model")
+
+                tabela.querySelector('.getPerfilEData').innerHTML = dados.perfilId.Perfil + ' - ' + dados.data
+                tabela.querySelector('.getComentario').innerHTML = dados.comentario
+
+                comentarios.appendChild(tabela)
+            })
+        })
+        .catch(err => console.error(err));
+
+}
+
+function fecharModalComentario() {
+    let modalAparecer = document.querySelector(".modalComentarios");
+    modalAparecer.classList.remove("modelModal")
+}
+
+function addEquipamento(){
+    let modalAparecer = document.querySelector(".modalAddNovoComentario");
+    modalAparecer.classList.add("modelModal")
+}
+
+function fecharModalAddComentario() {
+    let modalAparecer = document.querySelector(".modalAddNovoComentario");
+    modalAparecer.classList.remove("modelModal")
 }

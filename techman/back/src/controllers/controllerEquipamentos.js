@@ -21,12 +21,50 @@ const create = async (req, res) => {
 }
 
 const read = async (req, res) => {
-    let equipamento = await prisma.equipamentos.findMany()
+    let equipamento = await prisma.equipamentos.findMany({
+        select: {
+            id: true,
+            equipamento: true,
+            imagem: true,
+            descricao: true,
+            ativo: true,
+            data: true,
+            comentarios: {
+                select: {
+                    comentario: true,
+                    equipamento: true,
+                    perfil: true,
+                    data: true,
+                }
+            }
+        }
+    })
     res.status(200).json(equipamento).end()
 }
 
 const readOne = async (req, res) => {
     let equipamento = await prisma.equipamentos.findUnique({
+        select: {
+            id: true,
+            equipamento: true,
+            imagem: true,
+            descricao: true,
+            ativo: true,
+            data: true,
+            comentarios: {
+                select: {
+                    comentario: true,
+                    equipamento: true,
+                    perfil: true,
+                    data: true,
+                    perfilId: {
+                        select: {
+                            Perfil: true
+                        }
+                    }
+                }
+            }
+        },
         where: {
             id: Number(req.params.id)
         }
@@ -49,7 +87,7 @@ const update = async (req, res) => {
         })
         res.status(200).send({ mensagem: `atualizado com sucesso` }).end()
     } catch (error) {
-        res.status(200).send({ mensagem: `Erro ` }).end()
+        res.status(404).send({ mensagem: `Erro ` }).end()
     }
 }
 
@@ -62,7 +100,7 @@ const del = async (req, res) => {
         })
         res.status(200).send({ mensagem: `deletado com sucesso` }).end()
     } catch (error) {
-        res.status(200).send({ mensagem: `Erro ` }).end()
+        res.status(404).send({ mensagem: `Erro` }).end()
     }
 }
 

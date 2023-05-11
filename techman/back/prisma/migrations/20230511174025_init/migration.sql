@@ -1,7 +1,7 @@
 -- CreateTable
 CREATE TABLE `Perfil` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
-    `Perfil` INTEGER NOT NULL,
+    `Perfil` VARCHAR(191) NOT NULL,
 
     UNIQUE INDEX `Perfil_Perfil_key`(`Perfil`),
     PRIMARY KEY (`id`)
