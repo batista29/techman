@@ -69,7 +69,7 @@ const login = async (req, res) => {
         })
 
         if (user !== null) {
-            res.status(200).send({ mensagem: "Aceito" }).end()
+            res.status(200).send({ user }).end()
         } else {
             res.status(404).send({ mensagem: "Recusado" }).end()
         }

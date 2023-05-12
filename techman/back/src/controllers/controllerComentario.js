@@ -13,7 +13,7 @@ const create = async (req, res) => {
             data: req.body
         })
 
-        res.status(201).json(comentario).end()
+        res.status(201).send({ mensagem: "Comentario feito" }).end()
 
     } catch (error) {
         res.status(404).send({ mensagem: "erro ao criar" }).end()

@@ -119,6 +119,10 @@ main {
     display: none;
 }
 
+.model2 {
+    visibility: hidden;
+}
+
 .modal,
 .modal3 {
     height: 50vh;
@@ -180,7 +184,7 @@ main {
 }
 
 .divComentarios {
-    margin: 30px 50px;
+    margin: 0px 50px 65px;
     border-bottom: 2px solid var(--cor3);
     border-style: dotted;
     border-top: none;
@@ -199,7 +203,7 @@ main {
     color: var(--background2);
     border: none;
     border-radius: 20px;
-    height: 6vh;
+    height: 5vh;
     width: 170px;
     font-size: 15px;
     margin-top: 350px;

@@ -84,3 +84,7 @@ button:hover {
     background-color: var(--cor3);
     color: var(--background2);
 }
+
+.desabilitarBtn {
+    visibility: hidden;
+}

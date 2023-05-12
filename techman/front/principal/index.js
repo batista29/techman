@@ -6,13 +6,23 @@ var divComentarios = document.querySelector('.divComentarios')
 var comentarios = document.querySelector('.comentarios')
 
 function carregar() {
+    let idPerfil = localStorage.getItem("idPerfil");
+
+    if (idPerfil == 2) {
+        let btnNovoEquipamento = document.querySelector(".addEquipamento");
+        btnNovoEquipamento.classList.remove("model2")
+    } else {
+        let btnNovoEquipamento = document.querySelector(".addEquipamento");
+        btnNovoEquipamento.classList.add("model2")
+    }
+
     let options = { method: 'GET' };
 
     fetch('http://localhost:3000/listarEquipamentos', options)
         .then(response => response.json())
         .then(res => {
             res.forEach(dados => {
-                console.log(dados)
+
                 if (dados.ativo == true) {
                     let tabela = listaRead.cloneNode(true)
                     tabela.classList.remove("model")
@@ -38,14 +48,12 @@ function logout() {
 
 function deletar(e) {
     let id = e.parentNode.parentNode.querySelector('.id').innerHTML
-    console.log(id)
 
     let option2 = { method: 'DELETE' };
 
     fetch(`http://localhost:3000/deletarEquipamento/${id}`, option2)
         .then(response => response.json())
         .then(res => {
-            console.log(res.mensagem)
             if (res.mensagem = 'deletado com sucesso') {
                 alert("Sucesso")
                 window.location.reload()
@@ -65,7 +73,6 @@ function abrirModalComentario(e) {
     modalAparecer.classList.add("modelModal")
 
     let id = e.parentNode.parentNode.querySelector('.id').innerHTML
-    console.log(id)
 
     localStorage.setItem("id", id);
 
@@ -74,12 +81,12 @@ function abrirModalComentario(e) {
     fetch(`http://localhost:3000/encontrarEquipamento/${id}`, options)
         .then(response => response.json())
         .then(res => {
-            console.log(res)
             res.comentarios.forEach(dados => {
 
                 let tabela = divComentarios.cloneNode(true)
                 tabela.classList.remove("model")
 
+                console.log(res)
                 tabela.querySelector('.getIdComentario').innerHTML = res.id
                 tabela.querySelector('.getPerfilEData').innerHTML = dados.perfilId.Perfil + ' - ' + dados.data
                 tabela.querySelector('.getComentario').innerHTML = dados.comentario
@@ -130,7 +137,6 @@ function addNovoEquipamento() {
 
     if (dados.equipamento && dados.imagem && dados.descricao && dados.ativo && dados.data !== "" || null) {
         if (dados.data.length < 23) {
-            console.log(dados.data)
             alert("Data está vazia")
         } else {
             const options = {
@@ -166,26 +172,40 @@ function fecharModalCriarComentario() {
 }
 
 function addNovoComentario(e) {
-    let id = localStorage.getItem("id");
+    let idEquipamento = localStorage.getItem("id");
+    let idPerfil = localStorage.getItem("idPerfil");
     let comentario = document.querySelector('.inpNovoComentario').value
 
-    // let dados = {
-    //     comentario: "",
-	// 	equipamento: "",
-	// 	perfil: "",
-	// 	data: ""
-    // }
+    if (comentario !== null || "") {
+        let agora = Date.now();
+        let dataAtual = new Date(agora);
+        let hoje = dataAtual.toISOString(); // "2022-01-30T18:30:00.000Z"
 
-    // formato da data : "2020-05-04T10:30:00.000Z"
+        let dados = {
+            comentario: comentario,
+            equipamento: Number(idEquipamento),
+            perfil: Number(idPerfil),
+            data: hoje
+        }
 
-    const options = {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: ""
-    };
+        const options = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(dados)
+        };
 
-    fetch('http://localhost:3000/criarComentario', options)
-        .then(response => response.json())
-        .then(response => console.log(response))
-        .catch(err => console.error(err));
+        fetch('http://localhost:3000/criarComentario', options)
+            .then(response => response.json())
+            .then(response => {
+                console.log(response)
+                if (response.mensagem == "Comentario feito") {
+                    alert(response.mensagem)
+                    window.location.reload()
+                    abrirModalCriarComentario()
+                }
+            })
+            .catch(err => console.error(err));
+    } else {
+        alert("Insira o seu comentario")
+    }
 }
