@@ -13,9 +13,10 @@ const create = async (req, res) => {
             data: req.body
         })
 
-        res.status(201).json(equipamento).end()
+        res.status(201).send({ mensagem: "ok" }).end()
 
     } catch (error) {
+        console.log(error)
         res.status(404).send({ mensagem: "erro ao criar" }).end()
     }
 }

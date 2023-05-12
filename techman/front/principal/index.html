@@ -47,18 +47,46 @@
                     <button class="fecharModal" onclick="fecharModalComentario()">X</button>
                     <h1>Comentários</h1>
                     <div class="divComentarios model">
+                        <h2 class="getIdComentario"></h2>
                         <h2 class="getComentario"></h2>
                         <h2 class="getPerfilEData"></h2>
                     </div>
-                    <button class="adicionarComentario">Adicionar comentário</button>
+                    <button class="adicionarComentario" onclick="abrirModalCriarComentario(this)">Adicionar
+                        comentário</button>
                 </div>
             </div>
         </div>
+        <div class="modalAddNovoEquipamento">
+            <div class="modal2">
+                <div class="addEquipamentos">
+                    <button class="fecharModal2" onclick="fecharModalAddEquipamento()">X</button>
+                    <input type="text" class="addNomeEquipamentoBtn" placeholder="Nome do equipamento" required>
+                    <select class="nomeDoEquipamento" name="Nome do equipamento" id="">
+                        <option class="tornomacnico" value="Torno_Mecanico_500mm.png">Torno Mecanico</option>
+                        <option class="telcadomicrosoft" value="Teclado_Microsoft.png">Teclado Microsoft</option>
+                        <option class="corei9" value="Intel_Core_i9.png">Core i9</option>
+                        <option class="mouserazer" value="Mouse_Razer.png">Mouse Razer</option>
+                        <option class="monitordell" value="Monitor_Dell.png">Monitor Dell</option>
+                    </select>
+                    <input type="text" class="addDescricaoEquipamentoBtn" placeholder="Descricao do equipamento"
+                        required>
+                    <select class="ativoSimOuNao" name="Nome do equipamento" id="">
+                        <option class="ativoSim" value="1">Sim</option>
+                        <option class="ativoNao" value="0">Não</option>
+                    </select>
+                    <input type="datetime-local" placeholder="data" class="addDataEquipamentoBtn" required>
+                </div>
+                <button class="adicionarNovoEquipamento" onclick="addNovoEquipamento()">Adicionar equipamento</button>
+            </div>
+        </div>
         <div class="modalAddNovoComentario">
-            <div class="modal">
+            <div class="modal3">
                 <div class="addComentarios">
-                    <button class="fecharModal" onclick="fecharModalAddComentario()">X</button>
-                    <button class="adicionarNovoComentario">Adicionar comentário</button>
+                    <button class="fecharModal3" onclick="fecharModalCriarComentario()">X</button>
+                    <h1>Cadastro de comentário</h1>
+                    <p><i>Comentário</i></p>
+                    <input class="inpNovoComentario" placeholder="digite seu comentário..." type="text">
+                    <button class="adicionarNovoComentario" onclick="addNovoComentario()">Adicionar</button>
                 </div>
             </div>
         </div>
